@@ -3,21 +3,13 @@ const cors = require("cors");
 const authRoutes = require("./routes/auth");
 const candidateRoutes = require("./routes/candidate");
 const employeeRoutes = require("./routes/employee");
-const attendanceRoutes = require("./routes/attendance");
-const leaveRoutes = require("./routes/leaves");
+const attendanceRoutes = require("./routes/attendance")
+const leaveRoutes = require("./routes/leaves")
 require("dotenv").config();
 require("./config/db");
 
 const app = express();
-
-// CORS configuration
-app.use(cors({
-  origin: process.env.VITE_API_URL || "https://hrms-psi-seven.vercel.app",
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true
-}));
-app.options("*", cors());
+app.use(cors({ origin: "*" }));
 
 app.use(express.json());
 
@@ -25,8 +17,8 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/candidates", candidateRoutes);
 app.use("/api/employees", employeeRoutes);
-app.use("/api/attendance", attendanceRoutes);
-app.use("/api/leaves", leaveRoutes);
+app.use("/api/attendance", attendanceRoutes)
+app.use("/api/leaves", leaveRoutes)
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
